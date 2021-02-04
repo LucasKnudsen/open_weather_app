@@ -1,12 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import {
-  Divider,
-  Grid,
-  Header,
-  Icon,
-  Segment,
-} from 'semantic-ui-react'
+import { Header, Button, Grid } from 'semantic-ui-react'
+
+import Showcaser from './components/Showcaser'
 
 class App extends React.Component {
   state = {
@@ -29,38 +25,26 @@ class App extends React.Component {
 
     })
   }
+  clickHandlerImg() {
+    document.getElementById('root').style.backgroundImage = 'url("https://images.unsplash.com/reserve/Af0sF2OS5S5gatqrKzVP_Silhoutte.jpg?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80")'
+    document.getElementsByClassName('sun')[0].innerHTML = "That's better!"
+  }
 
   render() {
     const { weatherInfo } = this.state;
-    
+
     return (
       <div className="main-container" data-cy="weather-display">
         <Header size="huge" textAlign="center">Your Location</Header>
-        <Segment className="main-segment" placeholder>
-          <Grid columns={2} stackable textAlign="center">
-            <Divider vertical />
-            
-            <Grid.Row>
-              <Grid.Column>
-                <Header data-cy="data" icon>
-                  <Icon name="world" />
-                  Your location: {weatherInfo.location}
-                  <br></br>
-                  The temperature: {weatherInfo.temperature}℃
-                </Header>
-              </Grid.Column>
-
-              <Grid.Column>
-                <Header data-cy="weather" icon>
-                  <Icon name="snowflake" />
-                  Weather:
-                  <p>{weatherInfo.weather && (weatherInfo.weather[0].main)}</p>
-                </Header>
-                
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Segment>
+        <Showcaser weatherInfo={weatherInfo} />
+        
+        <Grid>
+          <Grid.Row textAlign="center" centered>
+            <Button className="sun" color="yellow" onClick={() => this.clickHandlerImg()}>
+              Don't like what you see?
+              </Button>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }

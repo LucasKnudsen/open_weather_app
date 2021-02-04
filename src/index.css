@@ -29,3 +29,10 @@ code {
 .main-segment {
   margin-top: 50px!important;
 }
+
+.centering {
+  display: flex!important;
+  justify-content: center!important;
+  align-items: center!important;
+  width: 25%;
+}
