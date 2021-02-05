@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Header, Button, Grid } from 'semantic-ui-react'
-
+import { Line } from 'react-chartjs-2'
 import Showcaser from './components/Showcaser'
 
 class App extends React.Component {
@@ -16,6 +16,7 @@ class App extends React.Component {
       const locationResponse = await axios.get(`https://api.opencagedata.com/geocode/v1/json?key=752ad146959d4bc2a0b83bc4aab0ec9a&q=${latitude}+${longitude}`)
       const weatherResponse = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,daily&appid=5091ea391e19fef677e0e8307edbf904&units=metric`)
 
+      this.setState({ dailyTemp: weatherResponse.data.daily })
       const weatherInfo = {
         location: locationResponse.data.results[0].components.city ? locationResponse.data.results[0].components.city : locationResponse.data.results[0].components.postal_city,
         temperature: weatherResponse.data.current.temp,
@@ -31,19 +32,43 @@ class App extends React.Component {
   }
 
   render() {
-    const { weatherInfo } = this.state;
+    const { weatherInfo, dailyTemp } = this.state;
+    // debugger
+    let labels = []
+    let dataItems = []
+    let data
+    if (dailyTemp) {
+      dailyTemp.forEach(day => {
+        labels.push(new Date(dailyTemp[0].dt * 1000).toLocaleDateString('sv'))
+        dataItems.push(day.temp.day)
+      })
+      data = {
+        labels: labels,
+        datasets: [
+          {
+            label: '8 Day Forecast',
+            data: dataItems
+          }
+        ]
+      }
+    }
+    // new Date(dailyTemp[0].dt * 1000).toLocaleDateString('sv')
 
     return (
       <div className="main-container" data-cy="weather-display">
         <Header size="huge" textAlign="center">Your Location</Header>
-        <Showcaser weatherInfo={weatherInfo} />
-        
+        <Showcaser weatherInfo={weatherInfo}>
+          {dailyTemp && <Line data={data} />}
+        </Showcaser>
+
         <Grid>
           <Grid.Row textAlign="center" centered>
-            <Button className="sun" color="yellow" onClick={() => this.clickHandlerImg()}>
+            {/* <Button className="sun" color="yellow" onClick={() => this.clickHandlerImg()}>
               Don't like what you see?
-              </Button>
+            </Button> */}
+
           </Grid.Row>
+
         </Grid>
       </div>
     );
