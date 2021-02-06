@@ -87,7 +87,7 @@ class App extends React.Component {
 
     return (
       <div className="main-container" data-cy="weather-display">
-        <Header size="huge" textAlign="center">Your Location</Header>
+        <Header color="yellow" size="huge" textAlign="center">Your Weather Forecast</Header>
 
         <Showcaser weatherInfo={weatherInfo}>
           <Tab menu={{ pointing: true }} panes={panes} />
