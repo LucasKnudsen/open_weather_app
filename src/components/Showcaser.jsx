@@ -11,9 +11,10 @@ const Showcaser = ({ weatherInfo, children }) => {
   return (
     <Segment className="main-segment" placeholder>
       <Grid columns={2} stackable textAlign="center">
-        <Divider vertical></Divider>
+        
 
         <Grid.Row>
+        <Divider vertical></Divider>
           <Grid.Column>
             <Header data-cy="data" icon>
               <Icon name="world" />

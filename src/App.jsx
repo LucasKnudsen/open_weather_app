@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-import { Header, Button, Grid } from 'semantic-ui-react'
+import { Header, Button, Grid, Tab } from 'semantic-ui-react'
 import { Line } from 'react-chartjs-2'
 import Showcaser from './components/Showcaser'
+import DailyForecast from './components/DailyForecast'
 
 class App extends React.Component {
   state = {
@@ -14,7 +15,7 @@ class App extends React.Component {
       // this.setState({ location: response.coords })
       let { latitude, longitude } = pos.coords
       const locationResponse = await axios.get(`https://api.opencagedata.com/geocode/v1/json?key=752ad146959d4bc2a0b83bc4aab0ec9a&q=${latitude}+${longitude}`)
-      const weatherResponse = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,daily&appid=5091ea391e19fef677e0e8307edbf904&units=metric`)
+      const weatherResponse = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=5091ea391e19fef677e0e8307edbf904&units=metric`)
 
       this.setState({ dailyTemp: weatherResponse.data.daily })
       const weatherInfo = {
@@ -33,21 +34,51 @@ class App extends React.Component {
 
   render() {
     const { weatherInfo, dailyTemp } = this.state;
-    // debugger
+
+    const panes = [
+      {
+        menuItem: 'Daily Temp',
+        render: () => <Tab.Pane attached={false}>
+          {dailyTemp && <Line
+            data={data}
+            width={500}
+            height={250}
+            options={{ maintainAspectRatio: false }}
+          />}
+        </Tab.Pane>,
+      },
+      {
+        menuItem: '5-Day Forecast',
+        render: () => <Tab.Pane attached={false}>
+          <DailyForecast dailyTemp={dailyTemp} />
+        </Tab.Pane>,
+      },
+    ]
+
     let labels = []
     let dataItems = []
+    let dataItems2 = []
     let data
     if (dailyTemp) {
       dailyTemp.forEach(day => {
-        labels.push(new Date(dailyTemp[0].dt * 1000).toLocaleDateString('sv'))
+        labels.push(new Date(day.dt * 1000).toLocaleDateString('sv'))
         dataItems.push(day.temp.day)
+        dataItems2.push(day.feels_like.day)
       })
       data = {
         labels: labels,
         datasets: [
           {
-            label: '8 Day Forecast',
-            data: dataItems
+            label: 'Daily Temperature',
+            data: dataItems,
+            borderColor: '#B55DFF',
+            backgroundColor: '#32C5CE',
+          },
+          {
+            label: 'Daily Feels Like',
+            data: dataItems2,
+            borderColor: '#B55DFF',
+            backgroundColor: '#5883AB',
           }
         ]
       }
@@ -57,8 +88,10 @@ class App extends React.Component {
     return (
       <div className="main-container" data-cy="weather-display">
         <Header size="huge" textAlign="center">Your Location</Header>
+
         <Showcaser weatherInfo={weatherInfo}>
-          {dailyTemp && <Line data={data} />}
+          <Tab menu={{ pointing: true }} panes={panes} />
+
         </Showcaser>
 
         <Grid>
