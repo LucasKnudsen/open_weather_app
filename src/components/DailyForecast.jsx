@@ -15,7 +15,7 @@ const DailyForecast = ({ dailyTemp }) => {
       return "sun"
     } else if (weather === "Rainy") {
       return "tint"
-    } else {
+    } else { 
       return 'question'
     }
   }
