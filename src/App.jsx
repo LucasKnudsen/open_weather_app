@@ -5,6 +5,7 @@ import { Header, Tab } from 'semantic-ui-react'
 import Showcaser from './components/Showcaser'
 import DailyForecast from './components/DailyForecast'
 import TempChart from './components/TempChart'
+import UviForecast from './components/UviForecast'
 
 class App extends React.Component {
   state = {
@@ -22,7 +23,8 @@ class App extends React.Component {
       const weatherInfo = {
         location: locationResponse.data.results[0].components.city ? locationResponse.data.results[0].components.city : locationResponse.data.results[0].components.postal_city,
         temperature: weatherResponse.data.current.temp,
-        weather: weatherResponse.data.current.weather
+        weather: weatherResponse.data.current.weather,
+        uvi: weatherResponse.data.current.uvi
       }
       this.setState({ weatherInfo: weatherInfo })
 
@@ -49,13 +51,19 @@ class App extends React.Component {
           <DailyForecast dailyTemp={dailyTemp} />
         </Tab.Pane>,
       },
+      {
+      menuItem: 'UVI 8-day Forecast',
+      render: () => <Tab.Pane attached={false}>
+        <UviForecast dailyTemp={dailyTemp} />
+      </Tab.Pane>,
+      },
     ]
 
     return (
       <div className="main-container" data-cy="weather-display">
         <Header color="yellow" size="huge" textAlign="center">Your Weather Forecast</Header>
         <Showcaser weatherInfo={weatherInfo}>
-          <Tab menu={{ pointing: true }} panes={panes} />
+          <Tab textAlign="center" menu={{ pointing: true }} panes={panes} />
         </Showcaser>
 
       </div >

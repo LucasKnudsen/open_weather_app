@@ -39,8 +39,8 @@ const DailyForecast = ({ dailyTemp }) => {
 
 
   return (
-    <Grid columns={5} divided>
-      <Grid.Row >
+    <Grid columns={5} divided className="forecast">
+      <Grid.Row>
         {forecastList}
       </Grid.Row>
     </Grid>
