@@ -23,7 +23,10 @@ const UviForecast = ({ dailyTemp }) => {
   }
   return (
     <div>
-
+      {dailyTemp && <Bar data={data}
+        width={500}
+        height={250}
+        options={{ maintainAspectRatio: false }} />}
     </div>
   )
 }
