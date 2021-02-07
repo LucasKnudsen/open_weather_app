@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Header, Button, Grid, Tab } from 'semantic-ui-react'
+import { Header, Tab } from 'semantic-ui-react'
 import { Line } from 'react-chartjs-2'
 import Showcaser from './components/Showcaser'
 import DailyForecast from './components/DailyForecast'
@@ -90,20 +90,12 @@ class App extends React.Component {
         <Header color="yellow" size="huge" textAlign="center">Your Weather Forecast</Header>
 
         <Showcaser weatherInfo={weatherInfo}>
+
           <Tab menu={{ pointing: true }} panes={panes} />
 
         </Showcaser>
 
-        <Grid>
-          <Grid.Row textAlign="center" centered>
-            {/* <Button className="sun" color="yellow" onClick={() => this.clickHandlerImg()}>
-              Don't like what you see?
-            </Button> */}
-
-          </Grid.Row>
-
-        </Grid>
-      </div>
+      </div >
     );
   }
 }
