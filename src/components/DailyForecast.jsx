@@ -13,7 +13,7 @@ const DailyForecast = ({ dailyTemp }) => {
       return "skyatlas"
     } else if (weather === "Sun") {
       return "sun"
-    } else if (weather === "Rainy") {
+    } else if (weather === "Rain") {
       return "tint"
     } else { 
       return 'question'
