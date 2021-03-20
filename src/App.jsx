@@ -6,6 +6,26 @@ import Showcaser from './components/Showcaser'
 import DailyForecast from './components/DailyForecast'
 import TempChart from './components/TempChart'
 import UviForecast from './components/UviForecast'
+import { motion } from 'framer-motion'
+
+const headerVariants = {
+  initial: {
+    x: '-100vw',
+    scale: 0,
+    rotation: 360
+  },
+  animate: {
+    x: 0,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      delay: 0.5,
+      type: 'spring',
+      ease: 'easeInOut',
+      stiffness: 120
+    }
+  }
+}
 
 const App = () => {
   const [weatherInfo, setWeatherInfo] = useState({})
@@ -51,7 +71,13 @@ const App = () => {
 
   return (
     <div className="main-container" data-cy="weather-display">
-      <Header color="yellow" size="huge" textAlign="center">Your Weather Forecast</Header>
+      <Header color="yellow" size="huge" textAlign="center" as={motion.div}
+        variants={headerVariants}
+        animate="animate"
+        initial="initial"
+      
+      >
+        Your Weather Forecast</Header>
       <Showcaser weatherInfo={weatherInfo}>
         <Tab textAlign="center" menu={{ pointing: true }} panes={panes} />
       </Showcaser>

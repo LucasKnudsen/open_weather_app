@@ -6,9 +6,22 @@ import {
   Icon,
   Segment,
 } from 'semantic-ui-react'
+import { motion } from 'framer-motion'
+
+const infoVariants = {
+  initial: {
+    scale: 0
+  },
+  animate: {
+    scale: 1,
+    transition: {
+      delay: 1
+    }
+  }
+}
 
 const Showcaser = ({ weatherInfo, children }) => {
-  
+
   const findWeather = (weather) => {
     if (weather === 'Snow') {
       return "snowflake"
@@ -29,12 +42,15 @@ const Showcaser = ({ weatherInfo, children }) => {
   return (
     <Segment className="main-segment" placeholder>
       <Grid columns={2} stackable textAlign="center">
-        
 
-        <Grid.Row>
-        <Divider vertical></Divider>
-          <Grid.Column>
-            <Header data-cy="data" icon>
+
+        <Grid.Row as={motion.div} initial="initial" animate="animate">
+          <Divider vertical></Divider>
+          <Grid.Column >
+            <Header data-cy="data" icon as={motion.div}
+              variants={infoVariants}
+
+            >
               <Icon name="world" />
                   Your location: {weatherInfo.location}
               <br></br>
@@ -43,7 +59,9 @@ const Showcaser = ({ weatherInfo, children }) => {
           </Grid.Column>
 
           <Grid.Column>
-            <Header data-cy="weather" icon>
+            <Header data-cy="weather" icon as={motion.div}
+              variants={infoVariants}
+            >
               <Icon name={dailyWeather} />
                   Weather:
                   <p>{weatherInfo.weather && (weatherInfo.weather[0].main)}</p>

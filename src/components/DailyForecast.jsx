@@ -1,6 +1,22 @@
 import React from 'react'
 import { Grid, Icon, Header } from 'semantic-ui-react'
 import './DailyForecast.css'
+import { motion } from 'framer-motion'
+
+const containerVariants = {
+  animate: {
+    transition: { staggerChildren: 0.05 }
+  }
+}
+
+const dayVariants = {
+  initial: {
+    rotate: 180
+  },
+  animate: {
+    rotate: 0
+  }
+}
 
 const DailyForecast = ({ dailyTemp }) => {
 
@@ -15,11 +31,11 @@ const DailyForecast = ({ dailyTemp }) => {
       return "sun"
     } else if (weather === "Rain") {
       return "tint"
-    } else { 
+    } else {
       return 'question'
     }
   }
-  
+
 
   const forecastList = []
   for (let i = 0; i < dailyTemp.length - 3; i++) {
@@ -27,8 +43,8 @@ const DailyForecast = ({ dailyTemp }) => {
     let weather = dailyTemp[i].weather[0].main
     let dailyWeather = findWeather(weather)
     forecastList.push(
-      <Grid.Column key={i} textAlign="center">
-        <Icon size="large" name={dailyWeather}/>
+      <Grid.Column key={i} textAlign="center" variants={dayVariants} as={motion.div}>
+        <Icon size="large" name={dailyWeather} />
         <Header.Content className="days">{days[new Date(dailyTemp[i].dt * 1000).getDay()]}</Header.Content>
         <Header.Content>{dailyTemp[i].weather[0].main}</Header.Content>
         <Header.Content>{dailyTemp[i].temp.day}℃</Header.Content>
@@ -40,7 +56,12 @@ const DailyForecast = ({ dailyTemp }) => {
 
   return (
     <Grid columns={5} divided className="forecast">
-      <Grid.Row>
+      <Grid.Row
+        as={motion.div}
+        variants={containerVariants}
+        animate="animate"
+        initial="initial"
+      >
         {forecastList}
       </Grid.Row>
     </Grid>
