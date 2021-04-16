@@ -3,21 +3,6 @@ import { Grid, Icon, Header } from 'semantic-ui-react'
 import './DailyForecast.css'
 import { motion } from 'framer-motion'
 
-const containerVariants = {
-  animate: {
-    transition: { staggerChildren: 0.05 }
-  }
-}
-
-const dayVariants = {
-  initial: {
-    rotate: 180
-  },
-  animate: {
-    rotate: 0
-  }
-}
-
 const DailyForecast = ({ dailyTemp }) => {
 
   const findWeather = (weather) => {
@@ -69,3 +54,18 @@ const DailyForecast = ({ dailyTemp }) => {
 }
 
 export default DailyForecast
+
+const containerVariants = {
+  animate: {
+    transition: { staggerChildren: 0.05 }
+  }
+}
+
+const dayVariants = {
+  initial: {
+    rotate: 180
+  },
+  animate: {
+    rotate: 0
+  }
+}

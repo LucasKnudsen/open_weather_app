@@ -8,18 +8,6 @@ import {
 } from 'semantic-ui-react'
 import { motion } from 'framer-motion'
 
-const infoVariants = {
-  initial: {
-    scale: 0
-  },
-  animate: {
-    scale: 1,
-    transition: {
-      delay: 1
-    }
-  }
-}
-
 const Showcaser = ({ weatherInfo, children }) => {
 
   const findWeather = (weather) => {
@@ -78,3 +66,16 @@ const Showcaser = ({ weatherInfo, children }) => {
 }
 
 export default Showcaser
+
+
+const infoVariants = {
+  initial: {
+    scale: 0
+  },
+  animate: {
+    scale: 1,
+    transition: {
+      delay: 1
+    }
+  }
+}

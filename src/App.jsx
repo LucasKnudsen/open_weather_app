@@ -8,25 +8,6 @@ import TempChart from './components/TempChart'
 import UviForecast from './components/UviForecast'
 import { motion } from 'framer-motion'
 
-const headerVariants = {
-  initial: {
-    x: '-100vw',
-    scale: 0,
-    rotation: 360
-  },
-  animate: {
-    x: 0,
-    scale: 1,
-    rotate: 0,
-    transition: {
-      delay: 0.5,
-      type: 'spring',
-      ease: 'easeInOut',
-      stiffness: 120
-    }
-  }
-}
-
 const App = () => {
   const [weatherInfo, setWeatherInfo] = useState({})
   const [dailyTemp, setDailyTemp] = useState()
@@ -75,7 +56,7 @@ const App = () => {
         variants={headerVariants}
         animate="animate"
         initial="initial"
-      
+
       >
         Your Weather Forecast</Header>
       <Showcaser weatherInfo={weatherInfo}>
@@ -88,7 +69,24 @@ const App = () => {
 
 export default App
 
-
+const headerVariants = {
+  initial: {
+    x: '-100vw',
+    scale: 0,
+    rotation: 360
+  },
+  animate: {
+    x: 0,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      delay: 0.5,
+      type: 'spring',
+      ease: 'easeInOut',
+      stiffness: 120
+    }
+  }
+}
 
 // class App extends React.Component {
 //   state = {

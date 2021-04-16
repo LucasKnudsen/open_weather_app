@@ -1,4 +1,5 @@
-import { Line } from 'react-chartjs-2'
+// import { Line } from 'react-chartjs-2'
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 import React from 'react'
 
@@ -9,7 +10,7 @@ const TempChart = ({ dailyTemp }) => {
   let dataItems2 = []
   let data
   if (dailyTemp) {
-    dailyTemp.forEach((day,i) => {
+    dailyTemp.forEach((day, i) => {
       labels.push(days[new Date(dailyTemp[i].dt * 1000).getDay()])
       dataItems.push(day.temp.day)
       dataItems2.push(day.feels_like.day)
@@ -36,12 +37,22 @@ const TempChart = ({ dailyTemp }) => {
 
   return (
     <div>
-      {dailyTemp && <Line
+      {/* {dailyTemp && <Line
         data={data}
         width={500}
         height={250}
         options={{ maintainAspectRatio: false }}
-      />}
+      />} */}
+      <LineChart width={730} height={250} data={dailyTemp}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis label='Days' />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="temp.day" stroke="#8884d8" />
+        <Line type="monotone" dataKey="feels_like.day" stroke="#82ca9d" />
+      </LineChart>
     </div>
   )
 }
