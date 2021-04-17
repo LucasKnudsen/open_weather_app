@@ -1,5 +1,6 @@
 # Weather App. 
 ## API Consumption & Unit Testing
+Live at: https://tjek-dit-vejr.netlify.app/
 
 ### Using the browser's geolocation to make API calls
 Plucking out users location through getCurrentPosition, I'm making two GET requests through Axios to Open Weather and Open Cage. 
